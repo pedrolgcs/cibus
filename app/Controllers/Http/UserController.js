@@ -1,5 +1,7 @@
 'use strict'
 
+const User = use('App/Models/User')
+
 /**
  * Resourceful controller for interacting with users
  */
@@ -8,7 +10,13 @@ class UserController {
    * Show a list of all users.
    * GET users
    */
-  async index ({ request, response, view }) {
+  async index ({ response }) {
+    try {
+      const users = await User.all()
+      return response.send(users)
+    } catch (error) {
+      return response.send({ message: `${error}` })
+    }
   }
 
   /**
@@ -16,13 +24,20 @@ class UserController {
    * POST users
    */
   async store ({ request, response }) {
+    const data = request.only(['username', 'email', 'password'])
+    try {
+      const user = await User.create(data)
+      return response.send(user)
+    } catch (error) {
+      return response.send({ message: `${error}` })
+    }
   }
 
   /**
    * Display a single user.
    * GET users/:id
    */
-  async show ({ params, request, response, view }) {
+  async show ({ params, request, response }) {
   }
 
   /**

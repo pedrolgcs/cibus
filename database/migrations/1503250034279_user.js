@@ -8,7 +8,7 @@ class UserSchema extends Schema {
       table.increments()
       table.string('username', 50).notNullable().unique()
       table.string('email', 254).notNullable().unique()
-      table.string('password', 50).notNullable()
+      table.string('password').notNullable()
       table.boolean('active').defaultTo(false).notNullable()
       table.enu('user_type', ['admin', 'client', 'user']).defaultTo('user').notNullable()
       table.timestamps()
