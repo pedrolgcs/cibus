@@ -15,7 +15,7 @@ class UserController {
       const users = await User.all()
       return response.send(users)
     } catch (error) {
-      return response.send({ message: `${error}` })
+      return response.status(500).send({ message: `${error}` })
     }
   }
 
@@ -24,12 +24,18 @@ class UserController {
    * POST users
    */
   async store ({ request, response }) {
-    const data = request.only(['username', 'email', 'password'])
+    const data = request.only([
+      'name',
+      'username',
+      'email',
+      'password',
+      'phone'
+    ])
     try {
       const user = await User.create(data)
-      return response.send(user)
+      return response.status(201).send(user)
     } catch (error) {
-      return response.send({ message: `${error}` })
+      return response.status(400).send({ message: `${error}` })
     }
   }
 
@@ -37,7 +43,13 @@ class UserController {
    * Display a single user.
    * GET users/:id
    */
-  async show ({ params, request, response }) {
+  async show ({ params, response }) {
+    try {
+      const user = await User.findOrFail(params.id)
+      return response.status(200).send(user)
+    } catch (error) {
+      return response.status(404).send({ message: `${error}` })
+    }
   }
 
   /**
@@ -45,13 +57,34 @@ class UserController {
    * PUT or PATCH users/:id
    */
   async update ({ params, request, response }) {
+    const data = request.only([
+      'name',
+      'email',
+      'password',
+      'phone'
+    ])
+    try {
+      const user = await User.findOrFail(params.id)
+      user.merge({...data})
+      await user.save()
+      return response.status(201).send(user)
+    } catch (error) {
+      return response.status(404).send({ message: `${error}` })
+    }
   }
 
   /**
    * Delete a user with id.
    * DELETE users/:id
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, response }) {
+    try {
+      const user = await User.findOrFail(params.id)
+      await user.delete()
+      return response.status(200).send({ message: `Usuário deletado com sucesso` })
+    } catch (error) {
+      return response.status(404).send({ message: `${error}` })
+    }
   }
 }
 

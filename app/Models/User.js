@@ -32,9 +32,9 @@ class User extends Model {
     return this.hasMany('App/Models/Token')
   }
 
-  // relacionamento de um para um com profile
-  profile () {
-    return this.hasOne('App/Models/Profile')
+  // campos que não serão retornados
+  static get hidden () {
+    return ['password']
   }
 }
 
