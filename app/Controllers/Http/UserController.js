@@ -33,7 +33,6 @@ class UserController {
     ])
     try {
       const user = await User.create(data)
-      console.log(user)
       return response.status(201).send(user)
     } catch (error) {
       return response.status(400).send({ message: `${error}` })
@@ -44,9 +43,12 @@ class UserController {
    * Display a single user.
    * GET users/:id
    */
-  async show ({ params, response }) {
+  async show ({ params, auth, response }) {
     try {
       const user = await User.findOrFail(params.id)
+      if (user.id !== auth.user.id) {
+        return response.status(401).send({ message: `Not authorized` })
+      }
       return response.status(200).send(user)
     } catch (error) {
       return response.status(404).send({ message: `${error}` })
@@ -57,7 +59,7 @@ class UserController {
    * Update user details.
    * PUT or PATCH users/:id
    */
-  async update ({ params, request, response }) {
+  async update ({ params, auth, request, response }) {
     const data = request.only([
       'name',
       'email',
@@ -66,6 +68,9 @@ class UserController {
     ])
     try {
       const user = await User.findOrFail(params.id)
+      if (user.id !== auth.user.id) {
+        return response.status(401).send({ message: `Not authorized` })
+      }
       user.merge({...data})
       await user.save()
       return response.status(201).send(user)
@@ -78,9 +83,12 @@ class UserController {
    * Delete a user with id.
    * DELETE users/:id
    */
-  async destroy ({ params, response }) {
+  async destroy ({ params, auth, response }) {
     try {
       const user = await User.findOrFail(params.id)
+      if (user.id !== auth.user.id) {
+        return response.status(401).send({ message: `Not authorized` })
+      }
       await user.delete()
       return response.status(200).send(user)
     } catch (error) {
