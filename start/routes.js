@@ -20,3 +20,5 @@ Route.get('/', ({ request }) => {
 })
 
 Route.resource('/users', 'UserController').apiOnly()
+
+Route.resource('/restaurants', 'RestaurantController').apiOnly()

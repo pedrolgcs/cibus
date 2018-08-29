@@ -31,7 +31,9 @@ class User extends Model {
   tokens () {
     return this.hasMany('App/Models/Token')
   }
-
+  restaurants () {
+    return this.hasMany('App/Models/Restaurant')
+  }
   // campos que não serão retornados
   static get hidden () {
     return ['password']
