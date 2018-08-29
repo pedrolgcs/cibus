@@ -46,9 +46,6 @@ class UserController {
   async show ({ params, auth, response }) {
     try {
       const user = await User.findOrFail(params.id)
-      if (user.id !== auth.user.id) {
-        return response.status(401).send({ message: `Not authorized` })
-      }
       return response.status(200).send(user)
     } catch (error) {
       return response.status(404).send({ message: `${error}` })

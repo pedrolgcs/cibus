@@ -10,7 +10,9 @@ class RestaurantController {
    */
   async index ({ response }) {
     try {
-      const restaurants = await Restaurant.all()
+      const restaurants = await Restaurant.query().whereHas('user', (builder) => {
+        builder.where('active', true)
+      }).with('user').fetch()
       return response.send(restaurants)
     } catch (error) {
       return response.status(500).send({ message: `${error}` })
