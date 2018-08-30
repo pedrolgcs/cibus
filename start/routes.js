@@ -26,3 +26,5 @@ Route.resource('/users', 'UserController').apiOnly()
 Route.resource('/restaurants', 'RestaurantController').apiOnly().middleware(new Map([
   [['store', 'show', 'update', 'destroy'], ['auth']]
 ]))
+
+Route.resource('restaurants/:id/phones', 'PhoneController').apiOnly().except(['show']).middleware(['auth'])
