@@ -43,7 +43,7 @@ class UserController {
    * Display a single user.
    * GET users/:id
    */
-  async show ({ params, auth, response }) {
+  async show ({ params, response }) {
     try {
       const user = await User.findOrFail(params.id)
       return response.status(200).send(user)
@@ -56,7 +56,7 @@ class UserController {
    * Update user details.
    * PUT or PATCH users/:id
    */
-  async update ({ params, auth, request, response }) {
+  async update ({ params, request, response }) {
     const data = request.only([
       'name',
       'email',
@@ -65,9 +65,6 @@ class UserController {
     ])
     try {
       const user = await User.findOrFail(params.id)
-      if (user.id !== auth.user.id) {
-        return response.status(401).send({ message: `Not authorized` })
-      }
       user.merge({...data})
       await user.save()
       return response.status(201).send(user)
@@ -80,12 +77,9 @@ class UserController {
    * Delete a user with id.
    * DELETE users/:id
    */
-  async destroy ({ params, auth, response }) {
+  async destroy ({ params, response }) {
     try {
       const user = await User.findOrFail(params.id)
-      if (user.id !== auth.user.id) {
-        return response.status(401).send({ message: `Not authorized` })
-      }
       await user.delete()
       return response.status(200).send(user)
     } catch (error) {

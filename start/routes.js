@@ -22,11 +22,7 @@ Route.get('/', ({ request }) => {
 Route.post('/sessions', 'SessionController.create')
 
 Route.resource('/users', 'UserController').apiOnly()
-  .middleware(new Map([
-    [['show', 'update', 'destroy'], ['auth']]
-  ]))
 
-Route.resource('/restaurants', 'RestaurantController').apiOnly()
-  .middleware(new Map([
-    [['store', 'update', 'destroy'], ['auth']]
-  ]))
+Route.resource('/restaurants', 'RestaurantController').apiOnly().middleware(new Map([
+  [['store', 'show', 'update', 'destroy'], ['auth']]
+]))
