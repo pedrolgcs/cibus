@@ -10,9 +10,11 @@ class RestaurantController {
    */
   async index ({ response }) {
     try {
-      const restaurants = await Restaurant.query().whereHas('user', (builder) => {
-        builder.where('active', true)
-      }).with('user').fetch()
+      const restaurants = await Restaurant.query()
+        .whereHas('user', (builder) => {
+          builder.where('active', true)
+        })
+        .with('user').with('phones').fetch()
       return response.send(restaurants)
     } catch (error) {
       return response.status(500).send({ message: `${error}` })
@@ -43,7 +45,13 @@ class RestaurantController {
    */
   async show ({ params, response }) {
     try {
-      const restaurant = await Restaurant.findOrFail(params.id)
+      // const restaurant = await Restaurant.query().where('id', params.id).with('phones').fetch()
+      const restaurant = await Restaurant.query()
+        .where('id', params.id)
+        .whereHas('user', (builder) => {
+          builder.where('active', true)
+        })
+        .with('phones').fetch()
       return response.status(200).send(restaurant)
     } catch (error) {
       return response.status(404).send({ message: `${error}` })
