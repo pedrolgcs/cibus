@@ -38,13 +38,29 @@ class PhoneController {
    * PUT or PATCH phones/:id
    */
   async update ({ params, request, response }) {
+    const data = request.only(['phone', 'message'])
+    try {
+      const phone = await Phone.findOrFail(params.id)
+      phone.merge({...data})
+      await phone.save()
+      return response.status(201).send(phone)
+    } catch (error) {
+      return response.status(404).send({ message: `${error}` })
+    }
   }
 
   /**
    * Delete a phone with id.
    * DELETE phones/:id
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, response }) {
+    const phone = await Phone.findOrFail(params.id)
+    try {
+      await phone.delete()
+      return response.status(200).send(phone)
+    } catch (error) {
+      return response.send({ message: `${error}` })
+    }
   }
 }
 

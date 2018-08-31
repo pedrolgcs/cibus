@@ -14,7 +14,7 @@ class RestaurantController {
         .whereHas('user', (builder) => {
           builder.where('active', true)
         })
-        .with('user').with('phones').fetch()
+        .with('user').fetch()
       return response.send(restaurants)
     } catch (error) {
       return response.status(500).send({ message: `${error}` })
