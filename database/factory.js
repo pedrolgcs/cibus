@@ -11,12 +11,37 @@
 |
 */
 
-// const Factory = use('Factory')
+const Factory = use('Factory')
 
-/**
-  Factory.blueprint('App/Models/User', (faker) => {
-    return {
-      username: faker.username()
-    }
-  })
-*/
+// fabrica de users
+Factory.blueprint('App/Models/User', async (faker, i, data) => {
+  return {
+    name: data.name,
+    username: data.username,
+    email: data.email,
+    password: data.password,
+    active: data.active
+  }
+})
+
+Factory.blueprint('App/Models/Restaurant', async (faker) => {
+  return {
+    name: faker.name(),
+    opening_time: '08:00',
+    closing_time: '15:00',
+    delivery: faker.bool(),
+    delivery_price: faker.integer({ min: 1, max: 3 }),
+    payment_card: faker.bool(),
+    city: faker.city(),
+    neighborhood: faker.street(),
+    street: faker.street(),
+    number: faker.areacode()
+  }
+})
+
+Factory.blueprint('App/Models/Phone', async (faker) => {
+  return {
+    phone: faker.phone(),
+    message: faker.bool()
+  }
+})
