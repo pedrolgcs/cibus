@@ -29,10 +29,18 @@
 
 ### /restaurants
 
-* [GET]     /     => retorna todos os restaurantes de clientes ativos
+* [GET]     /     => retorna todos os restaurantes com cliente ATIVO
 * [GET]     /:id  => retorna o restaurante de ID informado;
 * [POST]    /     => cria um novo restaurante;
 * [PUT]     /:id  => atualiza o restaurante de ID informado;
 * [DELETE]  /:id  => remove o restaurante de ID informado;
 
 ------
+
+### restaurants/:id/phones
+
+* [GET]     /     => retorna os telefones do restaurante procurado
+* [GET]     /:id  => retorna o telefone de ID informado;
+* [POST]    /     => cria um novo telefone;
+* [PUT]     /:id  => atualiza o telefone de ID informado;
+* [DELETE]  /:id  => remove o telefone de ID informado;

@@ -30,4 +30,8 @@ Route.resource('/restaurants', 'RestaurantController').apiOnly()
 
 Route.resource('restaurants/:id/phones', 'PhoneController').apiOnly()
   .except(['show'])
-  .middleware(['auth'])
+  .middleware(new Map([
+    [['store', 'update', 'destroy'], ['auth']]
+  ]))
+
+Route.resource('users/:id/favorites', 'FavoriteController').apiOnly()

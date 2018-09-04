@@ -11,9 +11,7 @@ class RestaurantController {
   async index ({ response }) {
     try {
       const restaurants = await Restaurant.query()
-        .whereHas('user', (builder) => {
-          builder.where('active', true)
-        })
+        .ActiveUser()
         .with('user').fetch()
       return response.send(restaurants)
     } catch (error) {
@@ -48,9 +46,7 @@ class RestaurantController {
       // const restaurant = await Restaurant.query().where('id', params.id).with('phones').fetch()
       const restaurant = await Restaurant.query()
         .where('id', params.id)
-        .whereHas('user', (builder) => {
-          builder.where('active', true)
-        })
+        .Active()
         .with('phones').fetch()
       return response.status(200).send(restaurant)
     } catch (error) {

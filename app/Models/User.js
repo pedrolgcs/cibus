@@ -34,6 +34,9 @@ class User extends Model {
   restaurants () {
     return this.hasMany('App/Models/Restaurant')
   }
+  favorites () {
+    return this.hasMany('App/Models/Favorite')
+  }
   // campos que não serão retornados
   static get hidden () {
     return ['password']
