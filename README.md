@@ -44,3 +44,9 @@
 * [POST]    /     => cria um novo telefone;
 * [PUT]     /:id  => atualiza o telefone de ID informado;
 * [DELETE]  /:id  => remove o telefone de ID informado;
+
+------
+
+### users/:id/favorites
+
+* [GET]     /     => retorna uma lista dos restaurantes favoritos do usuário

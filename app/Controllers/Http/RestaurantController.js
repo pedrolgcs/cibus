@@ -46,7 +46,7 @@ class RestaurantController {
       // const restaurant = await Restaurant.query().where('id', params.id).with('phones').fetch()
       const restaurant = await Restaurant.query()
         .where('id', params.id)
-        .Active()
+        .ActiveUser()
         .with('phones').fetch()
       return response.status(200).send(restaurant)
     } catch (error) {
