@@ -6,7 +6,7 @@ class RestaurantSchema extends Schema {
   up () {
     this.create('restaurants', (table) => {
       table.increments()
-      table.string('name', 150).notNullable()
+      table.string('name', 150).notNullable().unique()
       table.string('logo').nullable()
       // working
       table.time('opening_time').notNullable()

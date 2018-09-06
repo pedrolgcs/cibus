@@ -15,10 +15,6 @@
 
 const Route = use('Route')
 
-Route.get('/', ({ request }) => {
-  return { greeting: 'Hello world in JSON' }
-})
-
 Route.post('/sessions', 'SessionController.create')
 
 Route.resource('/users', 'UserController').apiOnly()
@@ -28,10 +24,11 @@ Route.resource('/restaurants', 'RestaurantController').apiOnly()
     [['store', 'update', 'destroy'], ['auth']]
   ]))
 
-Route.resource('restaurants/:id/phones', 'PhoneController').apiOnly()
+Route.resource('/restaurants/:id/phones', 'PhoneController').apiOnly()
   .except(['show'])
   .middleware(new Map([
     [['store', 'update', 'destroy'], ['auth']]
   ]))
 
-Route.resource('users/:id/favorites', 'FavoriteController').apiOnly()
+Route.resource('/user/favorites', 'FavoriteController').apiOnly()
+  .middleware('auth')

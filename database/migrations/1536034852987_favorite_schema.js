@@ -21,7 +21,6 @@ class FavoriteSchema extends Schema {
         .inTable('restaurants')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-      // table.timestamps()
     })
   }
 

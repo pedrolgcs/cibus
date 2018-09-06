@@ -8,10 +8,10 @@ class FavoriteController {
    * Show a list of all favorites.
    * GET favorites
    */
-  async index ({ params, response }) {
+  async index ({ response, auth }) {
     try {
       const favorits = await Favorite.query()
-        .where('user_id', params.id)
+        .where('user_id', auth.user.id)
         .ActiveRestaurants()
         .with('restaurants')
         .fetch()
@@ -25,7 +25,14 @@ class FavoriteController {
    * Create/save a new favorite.
    * POST favorites
    */
-  async store ({ request, response }) {
+  async store ({ request, response, auth }) {
+    const data = request.only(['restaurant_id'])
+    try {
+      const favorit = await Favorite.create({...data, user_id: auth.user.id})
+      return response.status(201).send(favorit)
+    } catch (error) {
+      return response.status(400).send({ message: `${error}` })
+    }
   }
 
   /**

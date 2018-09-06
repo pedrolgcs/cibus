@@ -37,7 +37,7 @@
 
 ------
 
-### restaurants/:id/phones
+### /restaurants/:id/phones
 
 * [GET]     /     => retorna os telefones do restaurante procurado
 * [GET]     /:id  => retorna o telefone de ID informado;
@@ -47,6 +47,7 @@
 
 ------
 
-### users/:id/favorites
+### /user/favorites
 
 * [GET]     /     => retorna uma lista dos restaurantes favoritos do usuário
+* [POST]    /     => retorna uma lista dos restaurantes favoritos do usuário
