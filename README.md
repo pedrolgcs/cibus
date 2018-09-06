@@ -50,4 +50,4 @@
 ### /user/favorites
 
 * [GET]     /     => retorna uma lista dos restaurantes favoritos do usuário
-* [POST]    /     => retorna uma lista dos restaurantes favoritos do usuário
+* [POST]    /     => adiciona um restaurante a lista de favoritos do usuário
