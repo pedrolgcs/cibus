@@ -9,6 +9,8 @@ class FavoriteController {
    * GET favorites
    */
   async index ({ response, auth }) {
+    // const busca = await Favorite.query().where({ 'user_id': auth.user.id })
+    // console.log(busca)
     try {
       const favorits = await Favorite.query()
         .where('user_id', auth.user.id)
