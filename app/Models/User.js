@@ -44,8 +44,8 @@ class User extends Model {
   // seram usadas pela model
   static get traits () {
     return [
-      '@provider: Adonis/Acl/HasRole',
-      '@provider: Adonis/Acl/HasPermission'
+      '@provider:Adonis/Acl/HasRole',
+      '@provider:Adonis/Acl/HasPermission'
     ]
   }
 }
