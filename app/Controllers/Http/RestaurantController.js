@@ -43,11 +43,13 @@ class RestaurantController {
    */
   async show ({ params, response }) {
     try {
-      // const restaurant = await Restaurant.query().where('id', params.id).with('phones').fetch()
       const restaurant = await Restaurant.query()
         .where('id', params.id)
         .ActiveUser()
         .with('phones').fetch()
+      if (!restaurant.rows.length) {
+        return response.status(404).send({ message: 'Not found' })
+      }
       return response.status(200).send(restaurant)
     } catch (error) {
       return response.status(404).send({ message: `${error}` })
@@ -67,7 +69,7 @@ class RestaurantController {
     try {
       const restaurant = await Restaurant.findOrFail(params.id)
       if (restaurant.user_id !== auth.user.id) {
-        return response.status(401).send({ message: `Not authorized` })
+        return response.status(401).send({ message: 'Not authorized' })
       }
       restaurant.merge({...data})
       await restaurant.save()

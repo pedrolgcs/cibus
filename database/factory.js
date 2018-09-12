@@ -45,3 +45,11 @@ Factory.blueprint('App/Models/Phone', async (faker) => {
     message: faker.bool()
   }
 })
+
+Factory.blueprint('roles', async (faker, i, data) => {
+  return {
+    slug: data.slug,
+    name: data.name,
+    description: data.description
+  }
+})

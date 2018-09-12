@@ -23,25 +23,25 @@ Route.resource('/users', 'UserController').apiOnly()
 
 // rota de permissões
 Route.resource('/permissions', 'PermissionController').apiOnly()
-  .middleware('auth')
+  .middleware('auth:jwt')
 
 // rota de roles
 Route.resource('/roles', 'RoleController').apiOnly()
-  .middleware('auth')
+  .middleware('auth:jwt')
 
 // rota de restaurantes
 Route.resource('/restaurants', 'RestaurantController').apiOnly()
   .middleware(new Map([
-    [['store', 'update', 'destroy'], ['auth']]
+    [['store', 'update', 'destroy'], ['auth:jwt', 'is:(administrator or moderator)']]
   ]))
 
 // rota de telefones dos restaurantes
 Route.resource('/restaurants/:id/phones', 'PhoneController').apiOnly()
   .except(['show'])
   .middleware(new Map([
-    [['store', 'update', 'destroy'], ['auth']]
+    [['store', 'update', 'destroy'], ['auth:jwt']]
   ]))
 
 // rota de restaurantes favoritos
 Route.resource('/user/favorites', 'FavoriteController').apiOnly()
-  .middleware('auth')
+  .middleware('auth:jwt')
