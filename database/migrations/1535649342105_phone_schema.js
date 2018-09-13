@@ -6,7 +6,7 @@ class PhoneSchema extends Schema {
   up () {
     this.create('phones', (table) => {
       table.increments()
-      table.string('phone', 20).notNullable()
+      table.string('phone', 20).notNullable().unique()
       table.boolean('message').notNullable()
       table
         .integer('restaurant_id')
