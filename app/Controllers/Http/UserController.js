@@ -105,7 +105,7 @@ class UserController {
     try {
       const user = await User.findOrFail(params.id)
       await user.delete()
-      return response.status(200).send(user)
+      return response.status(204).send()
     } catch (error) {
       return response.status(404).send({ message: `${error}` })
     }

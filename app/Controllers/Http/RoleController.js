@@ -67,7 +67,7 @@ class RoleController {
   async destroy ({ response, params }) {
     try {
       const role = await Role.findOrFail(params.id)
-      role.delete()
+      await role.delete()
       return response.status(200).send(role)
     } catch (error) {
       return response.status(404).send({ message: `${error}` })

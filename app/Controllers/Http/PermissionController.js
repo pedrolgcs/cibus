@@ -48,7 +48,7 @@ class PermissionController {
     try {
       const permission = await Permission.findOrFail(params.id)
       await permission.delete()
-      return response.status(200).send(permission)
+      return response.status(204).send()
     } catch (error) {
       return response.status(404).send({ message: `${error}` })
     }

@@ -57,7 +57,7 @@ class PhoneController {
     const phone = await Phone.findOrFail(params.id)
     try {
       await phone.delete()
-      return response.status(200).send(phone)
+      return response.status(204).send()
     } catch (error) {
       return response.send({ message: `${error}` })
     }

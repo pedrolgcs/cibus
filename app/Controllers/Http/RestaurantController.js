@@ -90,7 +90,7 @@ class RestaurantController {
         return response.status(401).send({ message: `Not authorized` })
       }
       await restaurant.delete()
-      return response.status(200).send(restaurant)
+      return response.status(204).send()
     } catch (error) {
       return response.status(404).send({ message: `${error}` })
     }
