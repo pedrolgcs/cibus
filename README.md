@@ -29,7 +29,7 @@
 
 ### /restaurants
 
-* [GET]     /     => retorna todos os restaurantes com cliente ATIVO
+* [GET]     /     => retorna todos os restaurantes com cliente ATIVO;
 * [GET]     /:id  => retorna o restaurante de ID informado;
 * [POST]    /     => cria um novo restaurante;
 * [PUT]     /:id  => atualiza o restaurante de ID informado;
@@ -39,7 +39,7 @@
 
 ### /restaurants/:id/phones
 
-* [GET]     /     => retorna os telefones do restaurante procurado
+* [GET]     /     => retorna os telefones do restaurante procurado;
 * [GET]     /:id  => retorna o telefone de ID informado;
 * [POST]    /     => cria um novo telefone;
 * [PUT]     /:id  => atualiza o telefone de ID informado;
@@ -49,5 +49,6 @@
 
 ### /user/favorites
 
-* [GET]     /     => retorna uma lista dos restaurantes favoritos do usuário
-* [POST]    /     => adiciona um restaurante a lista de favoritos do usuário
+* [GET]     /     => retorna uma lista dos restaurantes favoritos do usuário;
+* [POST]    /     => adiciona um restaurante a lista de favoritos do usuário;
+* [DELETE]  /:id  => remove o restaurante da lista de favoritos;

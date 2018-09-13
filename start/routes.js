@@ -20,6 +20,10 @@ Route.post('/sessions', 'SessionController.create')
 
 // rota de usuários
 Route.resource('/users', 'UserController').apiOnly()
+  .middleware(new Map([
+    [['show', 'update', 'destroy'], ['auth:jwt', 'is:(administrator or cliente or user)']],
+    [['index'], ['auth:jwt', 'is:(administrator)']]
+  ]))
 
 // rota de permissões
 Route.resource('/permissions', 'PermissionController').apiOnly()

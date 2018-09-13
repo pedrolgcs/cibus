@@ -36,12 +36,17 @@ class UserSeeder {
     const administrator = await Factory.get('roles').table('roles').create({
       slug: 'administrator',
       name: 'Administrator',
-      description: 'Administrador da API'
+      description: 'Adiministrador do sistema'
     })
     const cliente = await Factory.get('roles').table('roles').create({
       slug: 'cliente',
       name: 'Cliente',
-      description: 'Cliente dono de restaurantes'
+      description: 'Proprietário de restaurantes'
+    })
+    const user = await Factory.get('roles').table('roles').create({
+      slug: 'user',
+      name: 'user',
+      description: 'Usuário padrão'
     })
   }
 }

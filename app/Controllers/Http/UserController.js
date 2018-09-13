@@ -10,7 +10,10 @@ class UserController {
    * Show a list of all users.
    * GET users
    */
-  async index ({ response }) {
+  async index ({ response, auth }) {
+    // usando o ACL no controller
+    // const u = await auth.getUser()
+    // console.log(await u.can('update'))
     try {
       const users = await User.query()
         .with('roles')
