@@ -44,4 +44,5 @@ Route.resource('/restaurants/:id/phones', 'PhoneController').apiOnly()
 
 // rota de restaurantes favoritos
 Route.resource('/user/favorites', 'FavoriteController').apiOnly()
+  .except(['show', 'update'])
   .middleware('auth:jwt')
