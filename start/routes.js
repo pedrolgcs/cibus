@@ -40,14 +40,14 @@ Route.resource('/roles', 'RoleController').apiOnly()
 // rota de restaurantes
 Route.resource('/restaurants', 'RestaurantController').apiOnly()
   .middleware(new Map([
-    [['store', 'update', 'destroy'], ['auth:jwt', 'is:(cliente)']]
+    [['store', 'update', 'destroy'], ['auth:jwt', 'is:(client)']]
   ]))
 
 // rota de telefones dos restaurantes
 Route.resource('/restaurants/:id/phones', 'PhoneController').apiOnly()
   .except(['show'])
   .middleware(new Map([
-    [['store', 'update', 'destroy'], ['auth:jwt', 'is:(cliente)']]
+    [['store', 'update', 'destroy'], ['auth:jwt', 'is:(client)']]
   ]))
 
 // rota de restaurantes favoritos

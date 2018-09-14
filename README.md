@@ -11,13 +11,11 @@
 
 ### /sessions
 
-#### Campos => [email, password]
-
 * [POST] / => realiza o login do usuário;
 
 ------
 
-### /users
+### /users => [auth] except [POST /]
 
 * [GET]     /:id  => retorna o usuário de ID informado;
 * [POST]    /     => cria um novo usuário;
@@ -25,7 +23,7 @@
 
 ------
 
-### /restaurants
+### /restaurants => [auth, client]
 
 * [GET]     /     => retorna todos os restaurantes com cliente ATIVO;
 * [GET]     /:id  => retorna o restaurante de ID informado;
@@ -35,7 +33,7 @@
 
 ------
 
-### /restaurants/:id/phones
+### /restaurants/:id/phones => [auth, client]
 
 * [GET]     /     => retorna os telefones do restaurante procurado;
 * [GET]     /:id  => retorna o telefone de ID informado;
@@ -45,7 +43,7 @@
 
 ------
 
-### /user/favorites
+### /user/favorites => [auth]
 
 * [GET]     /     => retorna uma lista dos restaurantes favoritos do usuário;
 * [POST]    /     => adiciona um restaurante a lista de favoritos do usuário;
@@ -53,7 +51,7 @@
 
 ------
 
-### /admin/users
+### /admin/users => [administrator]
 
 * [GET]     /     => retorna uma lista de usuários cadastrados no sistema;
 * [GET]     /:id  => retorna o usuário de ID informado;
