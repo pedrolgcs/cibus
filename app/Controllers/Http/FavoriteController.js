@@ -27,8 +27,8 @@ class FavoriteController {
    */
   async store ({ request, response, auth }) {
     const data = request.only(['restaurant_id'])
-    // verifico se já existe esse registro no banco
-    const verify = await Favorite.query().where({user_id: auth.user.id} && {restaurant_id: data})
+    // verifico se já existe esse favorito
+    const verify = await Favorite.query().where({user_id: auth.user.id} && {restaurant_id: data.restaurant_id})
     if (verify.length > 0) {
       return response.status(204).send()
     }
