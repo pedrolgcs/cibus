@@ -69,7 +69,7 @@ class RestaurantController {
     try {
       const restaurant = await Restaurant.findOrFail(params.id)
       if (restaurant.user_id !== auth.user.id) {
-        return response.status(401).send({ message: 'Not authorized' })
+        return response.status(403).send({ message: 'Not authorized' })
       }
       restaurant.merge({...data})
       await restaurant.save()
@@ -87,7 +87,7 @@ class RestaurantController {
     try {
       const restaurant = await Restaurant.findOrFail(params.id)
       if (restaurant.user_id !== auth.user.id) {
-        return response.status(401).send({ message: `Not authorized` })
+        return response.status(403).send({ message: `Not authorized` })
       }
       await restaurant.delete()
       return response.status(204).send()

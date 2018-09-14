@@ -45,7 +45,7 @@ class UserController {
       const user = await User.findOrFail(params.id)
       // verifico se o usuário está olhando ele mesmo
       if (user.id !== auth.user.id) {
-        return response.status(401).send({ message: `Not authorized` })
+        return response.status(403).send({ message: `Not authorized` })
       }
       await user.loadMany(['roles', 'permissions'])
       return response.status(200).send(user)
@@ -72,7 +72,7 @@ class UserController {
       const user = await User.findOrFail(params.id)
       // verifico se o usuário está atualizando ele mesmo
       if (user.id !== auth.user.id) {
-        return response.status(401).send({ message: `Not authorized` })
+        return response.status(403).send({ message: `Not authorized` })
       }
       user.merge({...data})
       await user.save()
