@@ -43,6 +43,12 @@ class UserSeeder {
       name: 'Cliente',
       description: 'Proprietário de restaurantes'
     })
+
+    const admin = await Factory.get('roles').make()
+    await userPedro.roles().save(userPedro, admin)
+
+    const client = await Factory.get('roles').make()
+    await userJana.roles().save(userJana, client)
   }
 }
 
