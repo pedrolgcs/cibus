@@ -3,9 +3,25 @@
 const User = use('App/Models/User')
 
 /**
- * Resourceful controller for interacting with users
+ * Resourceful controller for interacting with adminusers
  */
-class UserController {
+class AdminUserController {
+  /**
+   * list all users
+   * GET users
+   */
+  async index ({ response }) {
+    try {
+      const users = await User.query()
+        .with('roles')
+        .with('permissions')
+        .fetch()
+      return response.send(users)
+    } catch (error) {
+      return response.status(500).send({ message: `${error}` })
+    }
+  }
+
   /**
    * create a new user
    * POST users
@@ -17,6 +33,7 @@ class UserController {
       'email',
       'password',
       'phone',
+      'active',
       'roles',
       'permissions'
     ])
@@ -29,7 +46,6 @@ class UserController {
         await user.permissions().attach(permissions)
       }
       await user.loadMany(['roles', 'permissions'])
-
       return response.status(201).send(user)
     } catch (error) {
       return response.status(400).send({ message: `${error}` })
@@ -40,13 +56,9 @@ class UserController {
    * show user by ID
    * GET users/:id
    */
-  async show ({ params, response, auth }) {
+  async show ({ params, response }) {
     try {
       const user = await User.findOrFail(params.id)
-      // verifico se o usuário está olhando ele mesmo
-      if (user.id !== auth.user.id) {
-        return response.status(401).send({ message: `Not authorized` })
-      }
       await user.loadMany(['roles', 'permissions'])
       return response.status(200).send(user)
     } catch (error) {
@@ -55,25 +67,22 @@ class UserController {
   }
 
   /**
-   * list all users
+   * update user by ID
    * PUT or PATCH users/:id
    */
-  async update ({ params, request, response, auth }) {
+  async update ({ params, request, response }) {
     const { roles, permissions, ...data } = request.only([
       'name',
       'username',
       'email',
       'password',
       'phone',
+      'active',
       'roles',
       'permissions'
     ])
     try {
       const user = await User.findOrFail(params.id)
-      // verifico se o usuário está atualizando ele mesmo
-      if (user.id !== auth.user.id) {
-        return response.status(401).send({ message: `Not authorized` })
-      }
       user.merge({...data})
       await user.save()
       if (roles) {
@@ -88,6 +97,20 @@ class UserController {
       return response.status(404).send({ message: `${error}` })
     }
   }
+
+  /**
+   * delete user by ID
+   * DELETE users/:id
+   */
+  async destroy ({ params, response }) {
+    try {
+      const user = await User.findOrFail(params.id)
+      await user.delete()
+      return response.status(204).send()
+    } catch (error) {
+      return response.status(404).send({ message: `${error}` })
+    }
+  }
 }
 
-module.exports = UserController
+module.exports = AdminUserController

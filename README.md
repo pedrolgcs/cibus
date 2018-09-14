@@ -19,11 +19,9 @@
 
 ### /users
 
-* [GET]     /     => retorna todos os usuário cadastrados;
 * [GET]     /:id  => retorna o usuário de ID informado;
 * [POST]    /     => cria um novo usuário;
 * [PUT]     /:id  => atualiza o usuário de ID informado;
-* [DELETE]  /:id  => remove o usuário de ID informado;
 
 ------
 
@@ -52,3 +50,13 @@
 * [GET]     /     => retorna uma lista dos restaurantes favoritos do usuário;
 * [POST]    /     => adiciona um restaurante a lista de favoritos do usuário;
 * [DELETE]  /:id  => remove o restaurante da lista de favoritos;
+
+------
+
+### /admin/users
+
+* [GET]     /     => retorna uma lista de usuários cadastrados no sistema;
+* [GET]     /:id  => retorna o usuário de ID informado;
+* [POST]    /     => cria um novo usuário;
+* [PUT]     /:id  => atualiza o usuário de ID informado;
+* [DELETE]  /:id  => remove o usuário de ID informado;

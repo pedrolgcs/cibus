@@ -20,30 +20,34 @@ Route.post('/sessions', 'SessionController.create')
 
 // rota de usuários
 Route.resource('/users', 'UserController').apiOnly()
+  .except(['index', 'destroy'])
   .middleware(new Map([
-    [['show', 'update', 'destroy'], ['auth:jwt', 'is:(administrator or cliente or user)']],
-    [['index'], ['auth:jwt', 'is:(administrator)']]
+    [['show', 'update'], ['auth:jwt']]
   ]))
+
+// rota de administrador para users
+Route.resource('/admin/users', 'AdminUserController').apiOnly()
+  .middleware(['auth:jwt', 'is:(administrator)'])
 
 // rota de permissões
 Route.resource('/permissions', 'PermissionController').apiOnly()
-  .middleware('auth:jwt')
+  .middleware(['auth:jwt', 'is:(administrator)'])
 
 // rota de roles
 Route.resource('/roles', 'RoleController').apiOnly()
-  .middleware('auth:jwt')
+  .middleware(['auth:jwt', 'is:(administrator)'])
 
 // rota de restaurantes
 Route.resource('/restaurants', 'RestaurantController').apiOnly()
   .middleware(new Map([
-    [['store', 'update', 'destroy'], ['auth:jwt', 'is:(administrator or moderator)']]
+    [['store', 'update', 'destroy'], ['auth:jwt', 'is:(cliente)']]
   ]))
 
 // rota de telefones dos restaurantes
 Route.resource('/restaurants/:id/phones', 'PhoneController').apiOnly()
   .except(['show'])
   .middleware(new Map([
-    [['store', 'update', 'destroy'], ['auth:jwt']]
+    [['store', 'update', 'destroy'], ['auth:jwt', 'is:(cliente)']]
   ]))
 
 // rota de restaurantes favoritos
