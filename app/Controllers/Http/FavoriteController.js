@@ -36,7 +36,7 @@ class FavoriteController {
       const favorit = await Favorite.create({...data, user_id: auth.user.id})
       return response.status(201).send(favorit)
     } catch (error) {
-      return response.status(400).send({ message: `${error}` })
+      return response.status(404).send({ message: `${error}` })
     }
   }
 
