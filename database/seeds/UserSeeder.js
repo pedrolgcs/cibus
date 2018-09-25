@@ -21,6 +21,8 @@ class UserSeeder {
     // Pedro Restaurants
     const restPedro = await Factory.model('App/Models/Restaurant').make()
     await userPedro.restaurants().save(restPedro)
+    const restPedro2 = await Factory.model('App/Models/Restaurant').make()
+    await userPedro.restaurants().save(restPedro2)
     const phonePedro = await Factory.model('App/Models/Phone').make()
     await restPedro.phones().save(phonePedro)
     const phonePedro2 = await Factory.model('App/Models/Phone').make()
@@ -29,6 +31,8 @@ class UserSeeder {
     // Jana Restaurant
     const restJana = await Factory.model('App/Models/Restaurant').make()
     await userJana.restaurants().save(restJana)
+	const restJana2 = await Factory.model('App/Models/Restaurant').make()
+    await userJana.restaurants().save(restJana2)
     const phoneJana = await Factory.model('App/Models/Phone').make()
     await restJana.phones().save(phoneJana)
 
