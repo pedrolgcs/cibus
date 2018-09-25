@@ -8,11 +8,13 @@ class RestaurantController {
    * Show a list of all restaurants.
    * GET restaurants
    */
-  async index ({ response }) {
+  async index ({ response, request }) {
     try {
+      const { page } = request.all()
       const restaurants = await Restaurant.query()
         .ActiveUser()
-        .with('user').fetch()
+        .with('user')
+        .paginate(page, 3)
       return response.send(restaurants)
     } catch (error) {
       return response.status(500).send({ message: `${error}` })
