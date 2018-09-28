@@ -45,13 +45,16 @@ class RestaurantController {
    */
   async show ({ params, response }) {
     try {
+      // const restaurant = await Restaurant.findBy('id', params.id && )
+      // await restaurant.load('phones')
       const restaurant = await Restaurant.query()
         .where('id', params.id)
         .ActiveUser()
-        .with('phones').fetch()
-      if (!restaurant.rows.length) {
+        .first()
+      if (!restaurant) {
         return response.status(404).send({ message: 'Not found' })
       }
+      await restaurant.load('phones')
       return response.status(200).send(restaurant)
     } catch (error) {
       return response.status(404).send({ message: `${error}` })
