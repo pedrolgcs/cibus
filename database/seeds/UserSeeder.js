@@ -31,7 +31,7 @@ class UserSeeder {
     // Jana Restaurant
     const restJana = await Factory.model('App/Models/Restaurant').make()
     await userJana.restaurants().save(restJana)
-	const restJana2 = await Factory.model('App/Models/Restaurant').make()
+    const restJana2 = await Factory.model('App/Models/Restaurant').make()
     await userJana.restaurants().save(restJana2)
     const phoneJana = await Factory.model('App/Models/Phone').make()
     await restJana.phones().save(phoneJana)
